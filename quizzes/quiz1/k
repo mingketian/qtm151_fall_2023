@@ -1,0 +1,412 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+# the "numPy" library is used for mathematical operations
+# the "matplotlib" library is for generating graphs
+# the "pandas" library is for manipualting datasets
+
+carfeatures = pd.read_csv('data/features.csv') 
+# name of datasets = pd.read_csv("data/name of dataset file.csv")
+
+# We use square brackets [...] to subset information from data 
+# Text/strings have to be written in quotation marks
+# This command extracts the column 'cylinders'
+carfeatures['cylinders']
+
+# crosstab counts how many rows fall into categories
+# "index" is the category
+# "columns" is a custom title
+table = pd.crosstab(index = carfeatures['cylinders'],columns = "count")
+table
+table.columns.name
+table.columns.name = 'column name'
+table
+
+# "describe" computes the count, mean, std, min, 25% quantile, 50%, 75%, max
+# automatically excludes variables with text values
+# otherwise includes all numeric variables
+carfeatures.describe()
+plt.scatter(x = carfeatures['weight'], y = carfeatures['mpg'])
+plt.show()
+
+# import sth as sth
+# type()
+# print()
+# assign a variable with =
+# type(list_numbers) = tuple 
+name = str(3)
+"My name is " + name
+
+list_mixed = ["hello", 1]
+another_list = [list_mixed, 3, 'h']
+another_list[0][1]
+
+list_colors = ["red","yellow","yellow", "green","red"]
+list_list = list_colors + ['red']
+# plot histogram with a list
+plt.hist(x= list_list)
+
+list_numbers = [1,1,2,3,4,4,5,6]
+list_numbers_sqr= (1,4,9,16,25,36,49,64)
+# plot scatterplot with two lists
+# x, y must be in same size
+plt.scatter(x = list_numbers, y = list_numbers_sqr)
+plt.xlabel("A meaningful name for the X-axis")
+plt.ylabel("Favourite name for Y-axis")
+plt.show()
+
+# Examples of numPy functions
+# $ ln(x), e^x, sin(x), cos(x), \sqrt{x}$
+print(np.exp(1))
+print(np.sin(1))
+print(np.cos(1))
+print(np.sqrt(1))
+np.pi
+
+# create an array from a list
+vec_a  = np.array([1,2,3])
+print(vec_a[0])
+print(np.mean(vec_a))
+print(np.std(vec_a))
+print(np.min(vec_a))
+print(np.median(vec_a))
+print(np.max(vec_a))
+vec_a.shape 
+
+np.random.seed(10393)
+# aviod random numbers differe every time
+
+# This code creates a vector of random variables 
+# mean "loc" (location) and standard deviation "scale"
+# the number of distinct variabels is "size"
+randomvar_a = np.random.normal(loc=0, scale=1, size=10)
+print(randomvar_a)
+
+# Compute a histogram
+plt.hist(x = randomvar_a)
+plt.xlabel("Variable a")
+plt.ylabel("Frequency") 
+
+# Set Sample size 
+n = 10000
+# A normam with "loc" and standard deviation "5"
+vec_normal  = np.random.normal(loc = 7, scale = 5, size = n)
+# A chi-square with "df" degrees of freedom
+vec_chisqr  = np.random.chisquare(df = 1, size = n)
+# A uniform with values between -3 and 5
+vec_unif    = np.random.uniform(low = -3,high = 5, size = n)
+
+print(vec_normal.mean())
+
+
+# optional
+# Matrices 
+X = np.array([[1,2,3],[0,4,5],[0,0,6]])
+print(X)
+Y = np.column_stack([[1,0,1],[2,1,0]])
+print(Y)
+# Matrix Transpose
+np.matrix.transpose(Y)
+# Matrix Multiplication
+np.dot(X,Y)
+np.matmul(X,Y)
+# Matrix inverse
+X_inv = np.linalg.inv(X)
+
+# BOOLEAN TYPE: True and False 
+# == test two strings
+# <, <=, >=, > 
+# isinstance command, check if y is integer, etc.
+y = 10
+print( isinstance(y,int)  )
+# int, float, str
+# bool()
+print(bool(10))
+
+# test one by one
+vec_a = np.array([1,2,3])
+vec_b = np.array([1,2,4])
+vec_a == vec_b
+
+# condition A
+age = 20
+# not A
+not (age < 18)
+
+# conditon A or condition B satisfied
+( age >= 20 ) | (age <= 30)
+
+# condition A and condition B both satisfied 
+student_status = "freshman" 
+(student_status == "freshman") & (student_status == "sophomore")
+
+
+# flow control - if/elif/else
+# We start by defining a string
+any_questions = "no"
+# Test expression
+# if ... ：
+if any_questions == "yes":
+# Body of expression
+# intend print()
+    print("Need to give more explanations")
+
+years_in_program = 4
+if years_in_program == 1:
+    print("This student is a freshman")
+elif years_in_program == 2:
+    print("This student is a sophomore")
+else:
+    print("This student is a senior")
+
+    list_answers = [None,None,None]
+list_answers[0] = ""
+new_list = []
+# append() : append the element to the end of the list 
+# new_list.append()
+# add one argument each time
+new_list.append("item")
+
+#repeated answers
+list_answers_rep = list_answers * 4 
+list_none_rep = [0] * 8 
+
+# When you multipy a list times a number you repeat the list
+list_a = [1,2,3]
+print( list_a*4)
+
+# When you multipy an array times a number, you multiply each element
+vec_a = np.array(list_a)
+print( vec_a * 4)
+
+# len() is a function that counts the number of elements
+print(len(list_answers))
+
+# Loops - for-loop:
+# customized message + numbering:
+list_ids = ["KIA", "Ferrari", "Ford", "Tesla"]
+
+for id in list_ids:
+    print("Dear customer, we are writing about your "  + id + " car.")
+for id in list_ids + ['a', 'b', 'c']:
+
+# or:
+index = 1
+print('We are out of the loop', index)
+for id in list_ids:
+    print("Dear customer, your position is " + str(index) + " on the waitlist" +
+           " and your car brand is " + id )
+    index = index + 1
+    print('We are inside the loop', index)
+
+# or:
+for i in range(len(list_ids)):
+    print("Dear customer, your position is " + str(i+1) + " on the waitlist" +
+           " and your car brand is " + list_ids[i])
+    
+    # Example 2: Customized Message + Numering
+
+# optional (for x in y:
+topic_list   = ["Python","Python","SQL"]
+module_list  = ["One", "Two", "Three"]
+num_topics = len(topic_list)
+
+message_list = [" Module " + module_list[i] + " will cover " + topic_list[i] for i in range(num_topics)]
+
+
+# plots for variables
+# import data, create list, for-loop:
+carfeatures = pd.read_csv("data/features.csv")
+list_vars   = ["acceleration","weight"]
+
+for variables in list_vars:
+    plt.scatter(x= carfeatures[variables], y = carfeatures["mpg"])
+    plt.ylabel("mpg")
+    plt.xlabel(variables)
+    plt.show()
+
+# or
+index = 1
+for variables in list_vars:
+    plt.scatter(x= carfeatures[variables], y = carfeatures["mpg"])
+    plt.ylabel("mpg")
+    plt.xlabel(variables)
+    plt.title("Figure" + str(index))
+    plt.show()
+    index = index + 1 # used for numbering 
+
+
+    list_x = [1,2,4,5,6,7,8,9,10]
+list_y = []
+
+# Create an index 
+for x in list_x: 
+    y = x**2 + 2*x
+    list_y.append(y)
+
+# Display results visually
+print(list_y)
+plt.scatter(list_x, list_y)
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+# or
+list_x = [1,2,4,5,6,7,8,9,10]
+list_y = [None] * len(list_x)
+
+# Create an index 
+index = 0
+for x in list_x:
+    list_y[index] = list_x[index]**2 + 2*list_x[index]
+    index = index + 1
+
+# Display results visually see above
+
+# import multiple datasets together 
+list_datasets = ["features.csv","worlbank_wdi_2019.csv"]
+
+# skipping iteration: continue
+# stopping the loop: breaking - lecture 5
+
+
+# multiple plots in a row - subplots
+# Create a plot with 1 row, 2 columns
+# The option "figsize" indicates the (width,height) of the graph
+fig, list_subfig = plt.subplots(1, 2,figsize = (6,3))
+plt.tight_layout()
+# The tight layout option ensures that the axes are not overlapping
+
+# First Figure
+list_subfig[0].hist(x = vec_normal)
+list_subfig[0].set_title("Normal Distribution")
+list_subfig[0].set_xlabel("Value")
+list_subfig[0].set_ylabel("Frequency")
+
+# Second Figure
+list_subfig[1].hist(x = vec_unif)
+list_subfig[1].set_title("Uniform Distribution")
+list_subfig[1].set_xlabel("Value")
+list_subfig[1].set_ylabel("Frequency")
+
+
+
+
+# singe loop - xbar with different sample size? - not change sample size, 
+# Use "list(range(n))" to create a list from 0 to (n-1).
+n= 10
+list_zero_ten = list(range(n))
+print(list_zero_ten)
+
+# We will draw random sample "num_simulations" times
+# Each time we will create a random vector of size "sample_size"
+num_simulations = 2000
+sample_size     = 100
+
+vec_xbar = [None] * num_simulations
+
+for iteration in range(num_simulations):
+    vec_unif  = np.random.uniform(low = -2, high=2, size = sample_size)
+    vec_xbar[iteration] = vec_unif.mean()
+
+plt.hist(vec_xbar)
+plt.title("Distribution of Xbar with different simulated samples")
+plt.ylabel("Frequency")
+plt.xlabel("Values of Xbar")
+plt.show()
+
+# nested loop - xbar with different n
+# change sample size, the larger the size, more to the normal distribution
+# another for-loop
+
+num_simulations = 2000
+sample_size_list = [1,10,50,100,200]
+
+for sample_size in sample_size_list:
+
+    # The following command a vector null values, of length "num_simulations"
+    vec_xbar = [None] * num_simulations
+    for sample_size in sample_size_list:
+
+    # The following command a vector null values, of length "num_simulations"
+    vec_xbar = [None] * num_simulations
+    
+    for iteration in range(num_simulations):
+            vec_unif  = np.random.uniform(low = -2, high=2, size = sample_size)
+            vec_xbar[iteration] = vec_unif.mean()
+    plt.hist(vec_xbar)
+    plt.title("Distribution of Xbar when n is " + str(sample_size))
+    plt.ylabel("Frequency")
+    plt.xlabel("Values of Xbar")
+    plt.show()
+
+# combine sub-plots and nested loop:
+# another for-loop
+num_simulations = 2000
+sample_size_list = [1,10,50,100,200]
+fig, list_subfig = plt.subplots(1,len(sample_size_list),figsize = (12,3))
+plt.tight_layout()
+index = 0
+for sample_size in sample_size_list: 
+        vec_xbar = [None]*num_simulations
+        for i in range(num_simulations):
+              vec_chisqr=np.random.chisquare(df = 1, size = sample_size)
+              vec_xbar[i]=vec_chisqr.mean()
+        list_subfig[index].hist(vec_xbar)
+        list_subfig[index].set_title("Distribution of Xbar when n is" +str(sample_size))
+        list_subfig[index].set_xlabel("Value of Xbar")
+        list_subfig[index].set_ylabel("Frequency")
+        index = index + 1
+# when numbering, don't use sample_size(this is different numbers), use index, index=0 before for...in..., index =indext +1
+
+
+sample_stdv = X.std()
+# optional:
+num_simulations = 1000
+n                 = 10000
+population_mean   = 2
+population_stdv   = 5
+
+list_test_confidenceinterval = []
+
+for iteration in range(n):
+    vec_x = np.random.normal(loc = population_mean, scale = population_stdv, size = n)
+    Xbar        = vec_x.mean()
+    sample_stdv = vec_x.std()
+    lower_bound = Xbar - 1.96*(sample_stdv / np.sqrt(n))
+    upper_bound = Xbar + 1.96*(sample_stdv / np.sqrt(n))
+    test_confidenceinterval = (lower_bound <= population_mean) & (population_mean <= upper_bound)
+    list_test_confidenceinterval.append((test_confidenceinterval))
+# Compute the mean of list_confidence_interval
+# This produce the percentage of times that the population_mean
+
+# print(),type(),round(),abs(),len()
+round(np.pi,  10)
+len('Hello')
+
+# custom functions
+def function_v(parameters):
+    v = ()
+    return v
+function_v=(parameters=())
+
+
+
+# Lambda function 
+my_function = lambda parameters: expression
+# my_function(1,2,...)
+
+# Boolean+function
+fn_iseligible_vote = lambda age: age>=18
+fn_iseligible_vote(20)
+# returns a boolean value that checks the function
+
+# Looping+function
+list_ages = [18,29,15,32,6]
+result_list = []
+
+for age in list_ages:
+    result_list.append(fn_iseligible_vote(age))
+np.sum(result_list)
+
+# customized plot used the above 
+# import, change color, plot 
