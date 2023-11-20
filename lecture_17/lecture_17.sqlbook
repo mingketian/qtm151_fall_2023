@@ -23,23 +23,67 @@ In this class we will
 United States Congress dataset
 
 <img src="figures/rdb_us_congress.png" alt="drawing" width="650"/>
+-- SQLBook: Code
+DROP TABLE IF EXISTS lap_times;
+CREATE TABLE lap_times(
+    driver_id int,
+    driver_name varchar(30),
+    nationality varchar(15),
+    victories int
+INSERT INTO drivers  VALUES (1, 'Lewis Hamilton','British',103);
+
+import pandas as pd
+from sqlalchemy import create_engine
+pit_stops = pd.read_csv('data_raw/pit_stops.csv')
+engine = create_engine('postgresql://postgres:12345@localhost:5432/formula1')
+pit_stops.to_sql('pit_stops_subject', con=engine,if_exists='replace', index=False)
+
+
+SELECT * FROM drivers
+WHERE nationality = 'German';
+ORDER BY victories ASC;
+
+
+SELECT driver_id, nationality FROM drivers;
+subset rows:
+SELECT * FROM drivers
+WHERE nationality = 'German';
+aggregate rows: 
+SELECT SUM(victories) AS sum_victories,
+       COUNT(*) AS num_rows,
+       AVG(victories) AS mean_victories,
+       MIN(victories) AS min_victories,
+       MAX(victories) AS max_victories
+FROM drivers;
+sort rows:
+SELECT driver_name FROM drivers
+ORDER BY victories ASC/DESC;
+
+DROP DATABASE IF EXISTS us_congress;
+CREATE DATABASE us_congress;
+CREATE SCHEMA bills;
+DROP TABLE IF EXISTS bills.bills_actions;
+
+import pandas as pd
+from sqlalchemy import create_engine
+bills = pd.read_csv('data/bills_subjects.csv')
+actions = pd.read_csv('data/bills_actions.csv')
+engine = create_engine('postgresql://postgres:12345@localhost:5432/us_congress', connect_args={'options': '-csearch_path=bills'})
+bills.to_sql('bills_subjects', con=engine,if_exists='replace', index=False)
+actions.to_sql('bills_actions', con=engine,if_exists='replace', index=False)
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Create and Activate a New Database </span>
 -- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@postgres
-
+-- Active: 1698872730943@@127.0.0.1@5432@postgres
+which to activate? private or public???????
 DROP DATABASE IF EXISTS us_congress;
 -- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@us_congress
+CREATE DATABASE us_congress;
+-- SQLBook: Code
+-- Active: 1698872730943@@127.0.0.1@5432@us_congress
 CREATE SCHEMA bills;
-
+-- under the dataset (us_congress)
 CREATE SCHEMA members;
--- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@formula1
-DROP TABLE IF EXISTS results;
--- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@postgres
-DROP TABLE IF EXISTS races;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -47,10 +91,13 @@ DROP TABLE IF EXISTS races;
 
 - Click on the ```Active Connection``` button and choose the correct database
 -- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@us_congress
+-- Active: 1698872730943@@127.0.0.1@5432@us_congress
 DROP TABLE IF EXISTS bills.bills_actions;
 DROP TABLE IF EXISTS bills.bills_subjects;
 DROP TABLE IF EXISTS members.us_congress_members;
+
+??????what are we doing here, drop and then create and then drop again?
+where are those names coming
 -- SQLBook: Markup
 # <span style="color:darkblue"> III. Import CSV into SQL </span>
 
@@ -133,6 +180,8 @@ Try it yourself!
 - Import the table "bills_actions.csv" using the procedure described above
 
 - Use the same ```csv_to_sql.ipynb``` to do the process
+-- SQLBook: Code
+
 -- SQLBook: Markup
 
 <font size = "5">

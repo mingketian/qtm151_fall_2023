@@ -36,7 +36,7 @@ panel on the left:
 
 Delete existing table
 -- SQLBook: Code
--- Active: 1698674191041@@127.0.0.1@5432@postgres
+-- Active: 1698872730943@@127.0.0.1@5432@postgres
 -- If the table already exists we can drop it:
 -- If it doesn't exist nothing happens
 -- System commands are in upper case and user defined
@@ -139,6 +139,8 @@ WHERE nationality = 'United States';
 SELECT * FROM drivers
 WHERE (driver_id = 2);
 
+???????? where is difference between OR & AND conditions?
+
 -- SQLBook: Markup
 <font size="5"> 
 
@@ -179,6 +181,8 @@ ORDER BY victories DESC;
 -- "Double quotations" are used to refer to column names
 SELECT * FROM drivers 
 WHERE nationality = 'German';
+
+SELECT "column names" FROM drivers
 -- SQLBook: Markup
 <font size = "5">
 
@@ -188,7 +192,9 @@ Try it yourself!
 with more than 60 victories
 -- SQLBook: Code
 -- Write your own code!
-SELECT driver_name, nationality, driver_id, victories FROM drivers;
+SELECT nationality, driver_id FROM drivers
+WHERE victories > 60;
+
 
 -- SQLBook: Markup
 # <span style="color:darkblue"> III. Groupby + Chaining </span>
